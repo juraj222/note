@@ -1,0 +1,19 @@
+<!DOCTYPE html>
+
+<html xmlns:th="http://www.thymeleaf.org">
+
+<head>
+    <title>Note app</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+    <link rel="stylesheet" type="text/css" media="all"
+          href="../../css/gtvg.css" th:href="@{/css/gtvg.css}" />
+</head>
+<body>
+arrara
+    <tbody>
+        <tr th:each="item,i : *{notes}" >
+            <td th:text="${item.text}">Item_name</td>
+        </tr>
+    </tbody>
+</body>
+</html>
