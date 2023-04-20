@@ -27,4 +27,8 @@ public class NoteUser {
 
     public NoteUser() {
     }
+
+    public NoteUser(Long id) {
+        this.id = id;
+    }
 }

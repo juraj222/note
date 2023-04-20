@@ -2,18 +2,61 @@
 
 <html xmlns:th="http://www.thymeleaf.org">
 
-<head>
-    <title>Note app</title>
-    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
-    <link rel="stylesheet" type="text/css" media="all"
-          href="../../css/gtvg.css" th:href="@{/css/gtvg.css}" />
-</head>
-<body>
-arrara
-    <tbody>
-        <tr th:each="item,i : *{notes}" >
-            <td th:text="${item.text}">Item_name</td>
-        </tr>
-    </tbody>
-</body>
+    <head>
+        <title>Note app</title>
+        <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+        <link rel="stylesheet" type="text/css" media="all"
+              href="../../css/gtvg.css" th:href="@{/css/gtvg.css}" />
+    </head>
+    <script type="text/javascript">
+        function showUpdate(clicked_id)
+        {
+            document.getElementById(clicked_id).style.display = 'block';
+        }
+    </script>
+    <body>
+        <table class="table table-bordered table-striped" id="todoItems">
+            <thead>
+            <tr>
+                <th>Note</th>
+            </tr>
+            </thead>
+            <tbody>
+                <tr th:each="item,i : *{notes}" >
+                    <td th:text="${item.text}"></td>
+                    <td>
+                        <form th:action="@{'/notes/{userId}/{id}'(id=${item.id}, userId=${item.user.id})}" th:method="delete" >
+                            <input type="hidden" name="_method" value="delete" />
+                            <button type="submit" id="submitButton"> X </button>
+                        </form>
+                    </td>
+                    <td>
+                        <button th:attr="onclick=|showUpdate('${item.id}')|">update</button>
+                    </td>
+                    <td>
+                        <form style="display: none;" th:id='${item.id}' th:action="@{'/notes/{userId}/{id}'(id=${item.id}, userId=${item.user.id})}" th:object="${note}" th:method="PUT" >
+                            <input type="hidden" name="_method" value="PUT" />
+                            <label>
+                                <input type="text" th:field="*{text}" />
+                            </label>
+                            <button type="submit" id="updateButton"> update </button>
+                        </form>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+
+        <div class="todoForm">
+            <form th:action="@{'/notes/' (userId=${userId})}" th:object="${note}" method="POST">
+                <div class="form-group">
+                    <label for="inputItemName" class="col-sm-2">Notes</label>
+                    <div class="col-sm-10">
+                        <input type="text" th:field="*{text}" class="form-control" id="inputItemName" placeholder="Notes"/>
+                    </div>
+                </div>
+                <button type="submit" class="btn btn-primary">Add Note</button>
+
+            </form>
+        </div>
+    </body>
 </html>

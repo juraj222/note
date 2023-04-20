@@ -19,4 +19,13 @@ public class Note {
     NoteUser user;
 
     String text;
+
+    @Override
+    public String toString() {
+        return "Note{" +
+                "id=" + id +
+                ", user=" + user +
+                ", text='" + text + '\'' +
+                '}';
+    }
 }
